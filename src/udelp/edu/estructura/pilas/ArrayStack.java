@@ -1,5 +1,4 @@
 package udelp.edu.estructura.pilas;
-
 public class ArrayStack {
 	private Object[]stack;
 	private int a;
@@ -24,12 +23,14 @@ public class ArrayStack {
 		}
 		return val;
 	}
+	
 	public void push (Object val) {
 		if(!isFull()) {
 			stack[a]=val;
 			a++;
 		}
 	}
+	
 	public Object pop() {
 		Object val=null;
 		if(!isEmpty()) {
@@ -39,6 +40,9 @@ public class ArrayStack {
 		}
 		return val;
 	}
+	
+	@Override
+	
 	public String toString() {
 		String s="";
 		for(int i=0; i < a; i++) {
