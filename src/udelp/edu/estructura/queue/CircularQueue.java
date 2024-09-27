@@ -1,4 +1,5 @@
 package udelp.edu.estructura.queue;
+
 public class CircularQueue {
 	private int f;
 	private int r;
