@@ -15,9 +15,11 @@ public class CircularQueue {
 	public int size() {
 		return size;
 	}
+	
 	public boolean isEmpty(){
 		return size == 0;
 	}
+	
 	public boolean isFull() {
 		return size == queue.length;
 	}
