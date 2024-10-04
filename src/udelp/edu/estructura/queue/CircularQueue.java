@@ -1,5 +1,4 @@
 package udelp.edu.estructura.queue;
-
 public class CircularQueue {
 	private int f;
 	private int r;
@@ -12,6 +11,7 @@ public class CircularQueue {
 		queue = new Object[size];
 		this.size=0;
 	}
+	
 	public int size() {
 		return size;
 	}

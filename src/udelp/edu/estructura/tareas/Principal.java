@@ -1,5 +1,5 @@
 package udelp.edu.estructura.tareas;
-import udelp.edu.estructura.funciones.Funciones;
+import udelp.edu.estructura.funcionesBanco.Metodos;
 import java.util.Scanner;
 public class Principal {
 
@@ -7,56 +7,82 @@ public class Principal {
 		// TODO Auto-generated method stub
 		Scanner leer = new Scanner(System.in); 
 		String seleccion;
-		String descripcion;
-		String codigo;
+		String caja;
+		String cuenta;
+		String nombre;
+		boolean tarjeta = false;
 		double dinero;
-		Funciones operacion = new Funciones();
+		int fila = 0;
+		Metodos operacion = new Metodos();
+		
 		do {
-    		System.out.println();
-    		System.out.println("Seleccion la operacion:\n" +
-    		    	"1: Agregar producto\n" +
-    		    	"2: Agregar dinero\n" +
-    		    	"3: Comprar producto\n" +
-    		    	"4: Imprimir estado\n" +
-    		    	"0: Finalizar" 
+			System.out.println("Digite cualquiera de las siguiente opciones: \n" +
+    		    	"1: Agregar dinero a la caja\n" +
+    		    	"2: Cliente nuevo\n" + 
+    		    	"3: Atender Cajas\n" + 
+    		    	"0: Para cerrar servicios"
     		    	);
-    		seleccion = leer.nextLine();
-    		System.out.println();
-    		switch(seleccion) {
-    		case "1":
-    			System.out.print("Dame el codigo del producto: ");
-    			codigo = leer.nextLine();
-    			System.out.print("Dame la descripcion del producto: ");
-    			descripcion = leer.nextLine();
-    			System.out.print("Dame el precio del producto: ");
-    			dinero = leer.nextDouble();
-    			operacion.agregarProducto(codigo, descripcion, dinero);
-    			break;
-    		case "2":
-    			System.out.print("Dame el precio del producto: ");
-    			dinero = leer.nextDouble();
-    			operacion.agregarMoneda(dinero);
-    			break;
-    		case "3":
-    			System.out.print("Dame el codigo del producto que quiere comprar: ");
-    			codigo = leer.nextLine();
-    			System.out.print("Inserte el dinero: ");
-    			dinero = leer.nextDouble();
-    			operacion.comprarProducto(codigo, dinero);
-    			break;
-    		case "4":
-    			operacion.imprimirEstado();
-    			break;	
-    		case "0":
-    			System.out.println("Fin de operaciones...");
-    			break;	
-    		default:
-    			System.out.println("Seleccion invalida");
-    			break;
-    		}
-    	}while(!seleccion.equals("0"));
-     
-
+			seleccion = leer.nextLine();
+			switch (seleccion) {
+			case "1":
+				System.out.println("¿Cuanto dinero desea agregar");
+				dinero = leer.nextDouble();
+				operacion.depositarDinero(dinero);
+				break;
+			case "2":
+				System.out.println("¿Tiene cuenta en este banco?");
+				System.out.println("Digite 1 si tiene cuenta en este banco");
+				System.out.println("Digite 0 si no tiene cuenta en este banco");
+				cuenta = leer.nextLine();
+				System.out.println("Deme su nombre");
+				nombre = leer.nextLine();
+				if(cuenta.equalsIgnoreCase("1")) {
+					tarjeta = true;
+				}
+				operacion.clienteNuevo(nombre, tarjeta);
+				fila++;
+				break;
+			case "3":
+				fila = operacion.cantidadDeClientes();
+				while (fila != 0) {
+				    for (int i = 1; i <= 4; i++) {
+				        if (fila >= i) {
+				            System.out.println("Bienvenido a caja " + i);
+				            System.out.println("Digite cualquiera de las siguientes opciones: \n" +
+				                               "1: Para depositar\n" +
+				                               "2: Para retirar\n");
+				            caja = leer.nextLine();
+				            switch (caja) {
+				                case "1":
+				                    System.out.println("¿Cuánto dinero desea depositar?");
+				                    dinero = leer.nextDouble();
+				                    leer.nextLine();
+				                    operacion.depositarDinero(dinero);
+				                    break;
+				                case "2":
+				                    System.out.println("¿Cuánto dinero desea retirar?");
+				                    dinero = leer.nextDouble();
+				                    leer.nextLine(); 
+				                    operacion.retirarDinero(dinero);
+				                    break;
+				                default:
+				                    System.out.println("Selección no válida");
+				                    break;
+				            }
+				        }
+				    }
+				    fila--;
+				}
+				break;
+			case "0":
+				System.out.println("Hora del cierre");
+				break;
+			default:	
+				System.out.println("Seleccion no válida");
+				break;
+			}
+		}while (!seleccion.equals("0"));
+		
+		
 	}
-
 }
